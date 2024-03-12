@@ -1,6 +1,8 @@
- import { hashPassword } from "../helpers/authHelper.js";
+ import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
- 
+ import JWT from 'jsonwebtoken';
+
+
  export const registerController = async(req, res) => {
     try {
         const {name, email, password, phone, address} = req.body;
@@ -33,7 +35,7 @@ import userModel from "../models/userModel.js";
         // register user
         const hashedPassword = await hashPassword(password)
         //save
-        const user = new userModel({
+        const user = await new userModel({
             name,
             email,
             phone,
@@ -56,4 +58,25 @@ import userModel from "../models/userModel.js";
     }
  };
 
-// export const registerController = () => {}
+//  export const loginController = async(req, res) => {
+//     try {
+//         const {email, password} = req.body
+//         //validate
+//         if(!email || !password){
+//             return res.status(404).send({
+//                 success:false,
+//                 message:'Invalid email or password'
+//             })
+//         }
+//         //check user
+
+//         const match = await comparePassword(password, user.password)
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).send({
+//             success:false,
+//             message:'Error in login',
+//             error
+//         })
+//     }
+//  };
