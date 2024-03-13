@@ -107,3 +107,8 @@ export const registerController = async (req, res) => {
         })
     }
  };
+
+ // test Controller
+ export const testController = (req, res) => {
+  res.send("Protected Route")
+ }
